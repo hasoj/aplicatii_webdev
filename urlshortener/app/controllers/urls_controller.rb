@@ -3,10 +3,12 @@ require "csv"
 
 class UrlsController < ActionController::Base
 
-	def goto
-    urldata = CSV.read('/tmp/urldata.txt').map
-    if urldata.has_key?(urldata[params[:id]])
-      redirect_to()
+	def redirect
+    urldata = CSV.read('/tmp/urldata.txt').to_h
+    if urldata.has_key?(params[:id])
+      redirect_to urldata[params[:id]]
+    else
+      render 'bad_link'
     end
   end
 
